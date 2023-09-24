@@ -440,7 +440,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="file" id="gambar" name="gambar"><br><br>
 
                 <button type="submit" class="btn btn-outline-success btn-sm mb-0 me-3">Tambah Data</button>
-                    <a style="text-align: center;" href="../bagian/guru.php" class="btn btn-outline-warning btn-sm mb-0 me-3">Kembali</a>
             </form>
             </div>
 
