@@ -366,6 +366,42 @@ $unit = $_GET['unit'];
                     <?php endforeach; ?>
                   </tbody>
                 </table>
+                <div class="d-flex justify-content-center">
+                <a href="?unit=<?= $unit; ?>&halaman=1" class="btn btn-primary btn-square mx-2">awal</a>
+
+<?php if ($halamanAktif > 1) : ?>
+    <a href="?unit=<?= $unit; ?>&halaman=<?= $halamanAktif - 1; ?>" class="btn btn-secondary btn-square mx-2">&laquo;</a>
+<?php endif; ?>
+
+<?php
+$startPage = max(1, $halamanAktif - 2);
+$endPage = min($jumlahHalaman, $startPage + 4);
+
+if ($startPage > 1) {
+    echo '<span></span>';
+}
+?>
+
+<?php for ($i = $startPage; $i <= $endPage; $i++) : ?>
+    <?php if ($i == $halamanAktif) : ?>
+        <a href="?unit=<?= $unit; ?>&halaman=<?= $i; ?>" class="btn btn-primary btn-square mx-2" style="font-weight: bold;"><?= $i; ?></a>
+    <?php else : ?>
+        <a href="?unit=<?= $unit; ?>&halaman=<?= $i; ?>" class="btn btn-secondary btn-square mx-2"><?= $i; ?></a>
+    <?php endif; ?>
+<?php endfor; ?>
+
+<?php
+if ($endPage < $jumlahHalaman) {
+    echo '<span></span>';
+}
+?>
+
+<?php if ($halamanAktif < $jumlahHalaman) : ?>
+    <a href="?unit=<?= $unit; ?>&halaman=<?= $halamanAktif + 1; ?>" class="btn btn-secondary btn-square mx-2">&raquo;</a>
+<?php endif; ?>
+
+<a href="?unit=<?= $unit; ?>&halaman=<?= $jumlahHalaman; ?>" class="btn btn-primary btn-square mx-2">akhir</a>
+</div>
               </div>
               <?php } else{
                 $data = runQuery("SELECT * FROM tb_data WHERE unit = '$unit' ");

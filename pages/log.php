@@ -2,7 +2,7 @@
 include '../logic.php';
 $salam = hari();
 $display = historiLog();
-$data = runQuery("SELECT * FROM tb_log ORDER BY id DESC LIMIT 10");
+$data = runQuery("SELECT * FROM tb_log ORDER BY id DESC LIMIT 15");
 $ax = date("m");
 $hari = date("d"); 
 $kemaren = $hari - 1;
