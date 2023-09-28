@@ -8,45 +8,52 @@ if(isset($_POST["import"])) {
   $fileExtension = strtolower(end($fileExtension));
 
   $newFileName = date("Y.m.d") . " - " . date("h.i.sa") . "." . $fileExtension;
-  $targetDirectory = "uploads/" . $newFileName;
+  $targetDirectory = "../uploads/" . $newFileName;
 
   move_uploaded_file($_FILES["excel"]["tmp_name"], $targetDirectory);
 
-  require "excelReader/excel_reader2.php";
-  require "excelReader/SpreadsheetReader.php";
+  require "../excelReader/excel_reader2.php";
+  require "../excelReader/SpreadsheetReader.php";
 
   $reader = new SpreadsheetReader($targetDirectory);
 
   foreach($reader as $key => $row) {
-      $data = [
-          'nik' => $row[0],
-          'unit' => $row[1],
-          'jenis_kelamin' => $row[2],
-          'jabatan' => $row[3],
-          'tanggal_mulai' => $row[4],
-          'status_karyawan' => $row[5],
-          'tempat_lahir' => $row[6],
-          'tanggal_lahir' => $row[7],
-          'alamat_ktp' => $row[8],
-          'no_npwp' => $row[9],
-          'alamat_npwp' => $row[10],
-          'pendidikan_terakhir' => $row[11],
-          'jurusan' => $row[12],
-          'alamat_sekarang' => $row[13],
-          'no_hp' => $row[14],
-          'agama' => $row[15],
-          'golongan_darah' => $row[16],
-          'email_sekolah' => $row[17],
-          'email_pribadi' => $row[18],
-          'medical_checkup' => $row[19],
-          'resan' => $row[20],
-          'status_kk' => $row[21],
-          'nik_ktp' => $row[22],
-          'rekening_sinarmas' => $row[23],
-      ];
-      create($data);
+      $nik = $row[0];
+      $unit = $row[1];
+      $jenis_kelamin = $row[2];
+      $jabatan = $row[3];
+      $tanggal_mulai = $row[4];
+      $status_karyawan = $row[5];
+      $tempat_lahir = $row[6];
+      $tanggal_lahir = $row[7];
+      $medical_checkup = $row[8];
+      $status_kk = $row[9];
+      $nik_ktp = $row[10];
+      $alamat_ktp = $row[11];
+      $no_npwp = $row[12];
+      $alamat_npwp = $row[13];
+      $rekening_sinarmas = $row[14];
+      $pendidikan_terakhir = $row[15];
+      $jurusan = $row[16];
+      $alamat_sekarang = $row[17];
+      $no_hp = $row[18];
+      $agama = $row[19];
+      $golongan_darah = $row[20];
+      $email_sekolah = $row[21];
+      $email_pribadi = $row[22];
+      $resan = $row[23];
+      mysqli_query($koneksi, "INSERT INTO tb_data(nik, unit, jenis_kelamin, jabatan, tanggal_mulai, status_karyawan, tempat_lahir, tanggal_lahir,
+                                                  medical_checkup, status_kk, nik_ktp, alamat_ktp, no_npwp, alamat_npwp,
+                                                  rekening_sinarmas, pendidikan_terakhir, jurusan, alamat_sekarang, no_hp,
+                                                  agama, golongan_darah, email_sekolah, email_pribadi,
+                                                  resan) VALUES('$nik', '$unit', '$jenis_kelamin','$jabatan','$tanggal_mulai',
+                                                  '$status_karyawan','$tempat_lahir','$tanggal_lahir','$medical_checkup',
+                                                  '$status_kk','$nik_ktp','$alamat_ktp','$no_npwp','$alamat_npwp',
+                                                  '$rekening_sinarmas','$pendidikan_terakhir','$jurusan','$alamat_sekarang',
+                                                  '$no_hp','$agama','$golongan_darah','$email_sekolah','$email_pribadi',
+                                                  '$resan')");
   }
-}    
+}     
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -440,7 +447,7 @@ $("#file-upload").change(function(){
     if ($(this).val()) {
         let filename = $(this).val().split('\\').pop();
         $("#selected-filename").text(filename);
-        $("button[name='import']").show();  // Show the import button
+        $("button[name='import']").show();
     }
 });
 
